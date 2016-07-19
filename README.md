@@ -1,5 +1,3 @@
-![Wacom Quick Fix](http://i.imgur.com/wIhH6WZ.png)
-
 # Wacom Quick Fix
 
 A standalone tool to fix your Wacom tablet's pressure and connection issues quickly and easily.
@@ -10,6 +8,8 @@ The tested working models are as follows:
 * Intuos4 (PTK-640)
 * Cintiq 22HD (DTK-2200)
 * Cintiq 27QHD (DTK-2700)
+
+![Wacom Quick Fix](http://i.imgur.com/wIhH6WZ.png)
 
 ### Feedback
 
