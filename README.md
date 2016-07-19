@@ -1,3 +1,5 @@
+![Wacom Quick Fix](http://i.imgur.com/wIhH6WZ.png)
+
 # Wacom Quick Fix
 
 A standalone tool to fix your Wacom tablet's pressure and connection issues quickly and easily.
