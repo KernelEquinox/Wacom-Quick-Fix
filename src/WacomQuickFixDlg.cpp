@@ -382,7 +382,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Home Screen Title */
 	m_HomeTitleText->Create(NULL, STATIC_STYLE, CRect(93, 66, 507, 110), this, 5001);
 	m_HomeTitleText->SetFont(m_TitleFont);
-	m_HomeTitleText->SetWindowTextW(_T("Wacom Quick Fix"));
+	m_HomeTitleText->SetWindowTextW(_T("Wacom/MP Quick Fix"));
 
 	/* This is the text shown before hovering over anything. */
 	m_DefaultText->Create(NULL, STATIC_STYLE, CRect(93, 139, 507, 227), this, 5002);
@@ -392,7 +392,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Cycle Services Explanation */
 	m_CycleText->Create(NULL, STATIC_HIDDEN, CRect(93, 139, 507, 227), this, 5003);
 	m_CycleText->SetFont(m_DefaultFont);
-	m_CycleText->SetWindowTextW(_T("Stop TabletInputService and all of the Wacom-related services, then immediately restart them in order."));
+	m_CycleText->SetWindowTextW(_T("Stop TabletInputService and all of the Wacom and Monoprice services, then immediately restart them in order."));
 
 	/* Toggle TIS Explanation */
 	m_ToggleText->Create(NULL, STATIC_HIDDEN, CRect(93, 139, 507, 227), this, 5004);
@@ -495,7 +495,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Answer 1 */
 	m_AnswerText1->Create(NULL, STATIC_HIDDEN, CRect(93, 163, 507, 295), this, 7003);
 	m_AnswerText1->SetFont(m_DefaultFont);
-	m_AnswerText1->SetWindowTextW(_T("This tool aims to remedy any and all issues that might occur when using a Wacom-brand tablet. This isn't meant to be a permanent fix; it's only meant to be used to get your tablet back in working condition in as little time as possible."));
+	m_AnswerText1->SetWindowTextW(_T("This tool aims to remedy any and all issues that might occur when using a Wacom-brand tablet or Monoprice-brand tablet. This isn't meant to be a permanent fix; it's only meant to be used to get your tablet back in working condition in as little time as possible."));
 
 	/* Question 2 */
 	m_QuestionText2->Create(NULL, STATIC_HIDDEN, CRect(93, 114, 507, 137), this, 7004);
@@ -505,7 +505,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Answer 2 */
 	m_AnswerText2->Create(NULL, STATIC_HIDDEN, CRect(93, 163, 507, 295), this, 7005);
 	m_AnswerText2->SetFont(m_DefaultFont);
-	m_AnswerText2->SetWindowTextW(_T("There's no definite answer to that as of yet, but my own personal research and debugging has shown that Windows' TabletInputService is the prime suspect in crippling Wacom drivers. My humble opinion is that TabletInputService alters the data passed to the Wintab32 listener."));
+	m_AnswerText2->SetWindowTextW(_T("There's no definitive answer to that for all cases, but Windows' TabletInputService seems to be the culprit most of the time."));
 
 	/* Question 3 */
 	m_QuestionText3->Create(NULL, STATIC_HIDDEN, CRect(93, 114, 507, 137), this, 7006);
@@ -515,7 +515,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Answer 3 */
 	m_AnswerText3->Create(NULL, STATIC_HIDDEN, CRect(93, 163, 507, 295), this, 7007);
 	m_AnswerText3->SetFont(m_DefaultFont);
-	m_AnswerText3->SetWindowTextW(_T("Theoretically, this tool should work on all Wacom devices. However, only the CTH-470 (Bamboo Capture) has been thoroughly tested.\r\n\r\nFeel free to submit feedback on which devices this works with to cryoganix.tumblr.com!"));
+	m_AnswerText3->SetWindowTextW(_T("This tool works on most Wacom tablets and was modified to work on certain Monoprice tablets."));
 
 	/* Question 4 */
 	m_QuestionText4->Create(NULL, STATIC_HIDDEN, CRect(93, 114, 507, 137), this, 7008);
@@ -545,7 +545,7 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	/* Answer 6 */
 	m_AnswerText6->Create(NULL, STATIC_HIDDEN, CRect(93, 163, 507, 295), this, 7013);
 	m_AnswerText6->SetFont(m_DefaultFont);
-	m_AnswerText6->SetWindowTextW(_T("This program is now open source and licensed under the GNU General Public License (GPLv2).\r\n\r\nIf you have any additional questions, feel free to contact me at cryoganix.tumblr.com!"));
+	m_AnswerText6->SetWindowTextW(_T("This program is now open source and licensed under the GNU General Public License (GPLv2).\r\n\r\nIf you have any additional questions, feel free to contact me at cryoganix@gmail.com! =)"));
 
 	/* Back */
 	m_BackText->Create(NULL, MYSTATIC_STYLE, CRect(475, 71, 508, 88), this, 7014);
@@ -553,9 +553,9 @@ BOOL CWacomQuickFixDlg::OnInitDialog()
 	m_BackText->SetWindowTextW(_T("Back"));
 
 	/* Copyright */
-	m_CopyrightText->Create(NULL, STATIC_HIDDEN, CRect(235, 280, 365, 297), this, 7015);
+	m_CopyrightText->Create(NULL, STATIC_HIDDEN, CRect(205, 280, 395, 297), this, 7015);
 	m_CopyrightText->SetFont(m_BackFont);
-	m_CopyrightText->SetWindowTextW(_T("© CryoGanix 2015"));
+	m_CopyrightText->SetWindowTextW(_T("© CryoGanix 2015-2018"));
 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -1089,7 +1089,7 @@ void CWacomQuickFixDlg::OnBnClickedPatch()
 //
 //  FUNCTION: cycleServices()
 //
-//  PURPOSE: Go through each of Wacom's services and toggle them twice.
+//  PURPOSE: Go through each tablet service and toggle it twice.
 //
 //  COMMENTS:
 //
@@ -1097,11 +1097,14 @@ void CWacomQuickFixDlg::OnBnClickedPatch()
 //    Windows' own TabletInputService. This function goes through all of the
 //    services that affect Wacom tablets and toggles their activated state.
 //
+//    Experimental support for the Monoprice 22" (Parblo Coast22) tablet was
+//    added on 02/05/2018.
+//
 void cycleServices()
 {
 	/* Create array of service names. */
 	LPCWSTR wacomServiceList[11];
-	wacomServiceList[0] = _T("TabletInputService");
+	wacomServiceList[0] = _T("TabletInputService");     // Lowest priority
 	wacomServiceList[1] = _T("TabletService");
 	wacomServiceList[2] = _T("TabletServicePen");
 	wacomServiceList[3] = _T("TabletServiceWacom");
@@ -1112,6 +1115,7 @@ void cycleServices()
 	wacomServiceList[8] = _T("WTabletServicePro");
 	wacomServiceList[9] = _T("WTabletServiceCon");
 	wacomServiceList[10] = _T("WTabletServiceISD");
+	wacomServiceList[10] = _T("HWSuperPowerTablet");    // Highest priority
 
 	/* Cycle each service's running state. */
 	for each (LPCWSTR wacomService in wacomServiceList) {
@@ -1204,6 +1208,9 @@ reEvaluateMyLife:
 //    whether or not Wintab32 has already been updated, and simply swaps the
 //    old and new files as needed to patch/unpatch. Does nothing if no Wacom
 //    driver is installed.
+//
+//    This currently only utilizes the Wacom version of Wintab32.dll; it does
+//    not use the Monoprice version of Wintab32.dll.
 //    
 int patchWinTab()
 {
