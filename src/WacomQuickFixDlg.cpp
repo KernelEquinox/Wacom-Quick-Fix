@@ -1015,11 +1015,15 @@ void CWacomQuickFixDlg::OnBnClickedCycle()
 	int wacomdev = cmdFind((LPCTSTR)_T("none"), NULL, 0, 1, args);
 	if (wacomdev) {
 		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
+		args[0] = (PWSTR)_T("HID\\VID_056A*");
+		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
 	}
 	/* Check for Monoprice tablets. */
 	args[0] = (PWSTR)_T("USB\\VID_0B57*");
 	int mpdev = cmdFind((LPCTSTR)_T("none"), NULL, 0, 1, args);
 	if (mpdev) {
+		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
+		args[0] = (PWSTR)_T("HDI\\VID_0B57*");
 		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
 	}
 	if (!wacomdev && !mpdev) {
