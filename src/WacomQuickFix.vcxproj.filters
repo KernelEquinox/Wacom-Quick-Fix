@@ -36,6 +36,9 @@
     <ClInclude Include="MyCStatic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WacomQuickFix.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MyCStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,15 +132,6 @@
     <Image Include="images\homebuttons\CycleButtonPressed.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="images\homebuttons\PatchButton.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="images\homebuttons\PatchButtonHover.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="images\homebuttons\PatchButtonPressed.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="images\homebuttons\ToggleButton.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -142,6 +139,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="images\homebuttons\ToggleButtonPressed.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\homebuttons\PatchButton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\homebuttons\PatchButtonPressed.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\homebuttons\PatchButtonHover.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

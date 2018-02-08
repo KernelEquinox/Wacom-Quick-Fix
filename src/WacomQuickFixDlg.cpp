@@ -20,6 +20,7 @@
 #include "WacomQuickFix.h"
 #include "WacomQuickFixDlg.h"
 #include "afxdialogex.h"
+#include "Device.h"
 #include <winsvc.h>
 
 #define STATIC_STYLE WS_CHILD | WS_VISIBLE | SS_LEFT
@@ -1006,6 +1007,27 @@ void CWacomQuickFixDlg::OnBnClickedCycle()
 
 	/* The services will never not cycle successfully. */
 	MessageBoxW(_T("Services cycled successfully!"), _T("Success"), MB_ICONINFORMATION);
+
+	/* Cycle hardware this time around. */
+	PWSTR args[1];
+	/* Check for Wacom tablets. */
+	args[0] = (PWSTR)_T("USB\\VID_056A*");
+	int wacomdev = cmdFind((LPCTSTR)_T("none"), NULL, 0, 1, args);
+	if (wacomdev) {
+		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
+	}
+	/* Check for Monoprice tablets. */
+	args[0] = (PWSTR)_T("USB\\VID_0B57*");
+	int mpdev = cmdFind((LPCTSTR)_T("none"), NULL, 0, 1, args);
+	if (mpdev) {
+		cmdRestart((LPCTSTR)_T("none"), NULL, 0, 1, args);
+	}
+	if (!wacomdev && !mpdev) {
+		MessageBoxW((LPCTSTR)_T("Did not detect a connected tablet.\r\n\r\nSkipping hardware reconnection."), _T("Success"), MB_ICONINFORMATION);
+	}
+	else {
+		MessageBoxW((LPCTSTR)_T("All tablet systems reconnected!"), _T("Success"), MB_ICONINFORMATION);
+	}
 }
 
 
